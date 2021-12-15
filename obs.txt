@@ -1,0 +1,4 @@
+Talvez dê problema:
+
+enviar stack(pilha) para o front, se não for possivel usa no JSF ou no front
+em questão, trocar;

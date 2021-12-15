@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="talx:Web">
+    <output-path>$PROJECT_DIR$/out/artifacts/talx_Web</output-path>
+    <root id="archive" name="talx_Web.war">
+      <element id="artifact" artifact-name="talx:Web exploded" />
+    </root>
+  </artifact>
+</component>
