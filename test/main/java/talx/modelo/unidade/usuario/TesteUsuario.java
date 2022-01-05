@@ -3,8 +3,8 @@ package main.java.talx.modelo.unidade.usuario;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import projeto.talx.infra.exception.NegocioException;
-import projeto.talx.core.dominio.Usuario;
+import com.github.lipenathan.talx.infra.exception.NegocioException;
+import com.github.lipenathan.talx.core.dominio.Usuario;
 
 public class TesteUsuario {
 

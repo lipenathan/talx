@@ -1,8 +1,8 @@
 package main.java.talx.util.utils;
 
 import org.junit.jupiter.api.Test;
-import projeto.talx.infra.exception.NegocioException;
-import projeto.talx.core.dominio.Usuario;
+import com.github.lipenathan.talx.infra.exception.NegocioException;
+import com.github.lipenathan.talx.core.dominio.Usuario;
 
 import static com.github.lipenathan.flynn.validador.Validador.apenasAlfabetico;
 import static org.junit.jupiter.api.Assertions.assertFalse;

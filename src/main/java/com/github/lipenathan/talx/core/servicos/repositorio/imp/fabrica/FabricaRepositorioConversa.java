@@ -1,9 +1,9 @@
-package projeto.talx.core.fabrica;
+package com.github.lipenathan.talx.core.servicos.repositorio.imp.fabrica;
 
-import projeto.talx.core.servicos.repositorio.imp.RepConversaMockImp;
-import projeto.talx.core.servicos.repositorio.contrato.RepositorioConversa;
-import projeto.talx.core.servicos.repositorio.imp.RepMensagemMockImp;
-import projeto.talx.core.servicos.repositorio.contrato.RepositorioMensagem;
+import com.github.lipenathan.talx.core.servicos.repositorio.imp.RepConversaMockImp;
+import com.github.lipenathan.talx.core.servicos.repositorio.contrato.RepositorioConversa;
+import com.github.lipenathan.talx.core.servicos.repositorio.imp.RepMensagemMockImp;
+import com.github.lipenathan.talx.core.servicos.repositorio.contrato.RepositorioMensagem;
 
 public class FabricaRepositorioConversa {
 

@@ -1,6 +1,6 @@
-package projeto.talx.core.dominio;
+package com.github.lipenathan.talx.core.dominio;
 
-import projeto.talx.infra.exception.NegocioException;
+import com.github.lipenathan.talx.infra.exception.NegocioException;
 
 import java.util.HashSet;
 import java.util.Objects;

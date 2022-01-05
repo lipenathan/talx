@@ -1,7 +1,7 @@
-package projeto.talx.core.servicos.repositorio.contrato;
+package com.github.lipenathan.talx.core.servicos.repositorio.contrato;
 
-import projeto.talx.core.dominio.Mensagem;
-import projeto.talx.infra.exception.NegocioException;
+import com.github.lipenathan.talx.core.dominio.Mensagem;
+import com.github.lipenathan.talx.infra.exception.NegocioException;
 
 import java.util.List;
 import java.util.Stack;

@@ -2,10 +2,10 @@ package main.java.talx.core.repositorio;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import projeto.talx.core.dominio.Conversa;
-import projeto.talx.infra.exception.NegocioException;
-import projeto.talx.core.servicos.repositorio.imp.RepConversaMockImp;
-import projeto.talx.core.servicos.repositorio.imp.RepMensagemMockImp;
+import com.github.lipenathan.talx.core.dominio.Conversa;
+import com.github.lipenathan.talx.infra.exception.NegocioException;
+import com.github.lipenathan.talx.core.servicos.repositorio.imp.RepConversaMockImp;
+import com.github.lipenathan.talx.core.servicos.repositorio.imp.RepMensagemMockImp;
 
 public class TesteRepConversaMockImp {
 

@@ -1,9 +1,9 @@
-package projeto.talx.core.servicos.repositorio.imp;
+package com.github.lipenathan.talx.core.servicos.repositorio.imp;
 
-import projeto.talx.core.dominio.Conversa;
-import projeto.talx.infra.exception.NegocioException;
-import projeto.talx.core.servicos.repositorio.contrato.RepositorioConversa;
-import projeto.talx.core.servicos.repositorio.contrato.RepositorioMensagem;
+import com.github.lipenathan.talx.core.dominio.Conversa;
+import com.github.lipenathan.talx.infra.exception.NegocioException;
+import com.github.lipenathan.talx.core.servicos.repositorio.contrato.RepositorioConversa;
+import com.github.lipenathan.talx.core.servicos.repositorio.contrato.RepositorioMensagem;
 
 import java.util.ArrayList;
 import java.util.List;

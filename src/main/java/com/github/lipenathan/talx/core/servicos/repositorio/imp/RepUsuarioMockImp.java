@@ -1,10 +1,10 @@
-package projeto.talx.core.servicos.repositorio.imp;
+package com.github.lipenathan.talx.core.servicos.repositorio.imp;
 
-import projeto.talx.core.dominio.Conversa;
-import projeto.talx.core.servicos.repositorio.contrato.RepositorioConversa;
-import projeto.talx.infra.exception.NegocioException;
-import projeto.talx.core.dominio.Usuario;
-import projeto.talx.core.servicos.repositorio.contrato.RepositorioUsuario;
+import com.github.lipenathan.talx.core.dominio.Conversa;
+import com.github.lipenathan.talx.core.dominio.Usuario;
+import com.github.lipenathan.talx.core.servicos.repositorio.contrato.RepositorioConversa;
+import com.github.lipenathan.talx.infra.exception.NegocioException;
+import com.github.lipenathan.talx.core.servicos.repositorio.contrato.RepositorioUsuario;
 
 import java.util.*;
 
@@ -25,7 +25,7 @@ public class RepUsuarioMockImp implements RepositorioUsuario {
     RepositorioConversa repConversa;
 
         public RepUsuarioMockImp(RepositorioConversa repConversa) {
-            System.out.println("Repositório de mock" + this.getClass().getSimpleName());
+            System.out.println("Repositório de " + this.getClass().getSimpleName());
             this.repConversa = repConversa;
             try {
                 this.inserir(new Usuario("Mock 1", "(43)99845-6685", null, "abc123"));
