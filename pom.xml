@@ -38,6 +38,13 @@
             <version>8.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.lipenathan</groupId>
+            <artifactId>flynn</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>D:\util\flynn\flynn.jar</systemPath>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

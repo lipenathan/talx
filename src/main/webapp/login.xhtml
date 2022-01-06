@@ -6,25 +6,32 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-   <!-- Required meta tags -->
-   <f:metadata charset="utf-8"/>
-   <f:metadata name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <!-- Required meta tags -->
+    <f:metadata charset="utf-8"/>
+    <f:metadata name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
-   <!-- Bootstrap CSS -->
-   <h:link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
-   <h:link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"/>
+    <!-- Bootstrap CSS -->
+    <h:link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+            crossorigin="anonymous"/>
+    <h:link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+            integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+            crossorigin="anonymous"/>
 
-   <title>Hello, world!!!</title>
+    <title>Hello, world!!!</title>
 </h:head>
 <ui:composition template="_template.xhtml">
     <ui:define name="titulo">Login</ui:define>
     <ui:define name="conteudo">
         <h:messages id="messages"/>
         <h:form>
-           <div class="input-group mb-3">
-              <h:inputText type="text" styleClass="form-control" value="Usuário:" label="usuaio"/>
-              <h:inputSecret type="text" styleClass="serializedFormContainer" value="Senha:" label="Senha"/>
-           </div>
+            <div class="input-group mb-3">
+                <h:outputLabel for="login" value="Login:"/>
+                <h:inputText type="text" value="#{portaLoginForm.login}" styleClass="form-control" id="login"/>
+                <h:outputLabel for="senha" value="Senha:"/>
+                <h:inputSecret type="text" value="#{portaLoginForm.senha}" styleClass="serializedFormContainer" id="senha"/>
+                <h:commandButton action="#{portaLoginForm.logar()}" value="Logar"/>
+            </div>
         </h:form>
     </ui:define>
 </ui:composition>
