@@ -2,6 +2,7 @@ package com.github.lipenathan.talx.core.dominio;
 
 import com.github.lipenathan.talx.infra.exception.NegocioException;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -15,47 +16,61 @@ import static com.github.lipenathan.flynn.validador.Validador.*;
  * @version 1.0 28/08/21
  * @since 28/08/21
  */
+@Entity
 public class Usuario {
 
     /**
      * armazena o id do usuario.
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_usuario")
     private Integer id;
     /**
      * armazena as conversas do usuario
      */
+    @ManyToMany
     private Set<Conversa> conversas;
     /**
      * Armazena os contatos do usuário.
      */
+    @Column(name = "contatos_usuario")
+    @ManyToMany
     private Set<Usuario> contatos;
     /**
      * armazena o nome do usuario.
      */
+    @Column(name = "nome_usuario")
     private String nome;
     /**
      * armazena o telefone do usuario.
      */
+    @Column(name = "telefone_usuario")
     private String telefone;
     /**
      * armazena o email do usuario.
      */
+    @Column(name = "email_usuario")
     private String email;
     /**
      * armazena  chave do usuario.
      */
+    @Column(name = "chave_usuario")
     private String chave;
     /**
      * armazena o pin do usuario.
      */
+    @Column(name = "pin_usuario")
     private Integer pin;
     /**
      * armazena o status do usuario.
      */
+    @Column(name = "status_usuario")
     private String status;
     /**
      * armazena a senha do usuario.
      */
+    @Column(name = "senha_usuario")
     private String senha;
 
     public Usuario(String nome, String telefone, String email, String senha) {

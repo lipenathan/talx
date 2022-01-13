@@ -3,6 +3,7 @@ package com.github.lipenathan.talx.core.processos;
 import com.github.lipenathan.talx.core.dominio.Usuario;
 import com.github.lipenathan.talx.core.servicos.repositorio.contrato.RepositorioUsuario;
 import com.github.lipenathan.talx.infra.exception.NegocioException;
+import com.github.lipenathan.talx.infra.exception.PersistenceException;
 
 /**
  * serviços de login
@@ -14,6 +15,8 @@ import com.github.lipenathan.talx.infra.exception.NegocioException;
 public class ProcessoLogin {
 
     private final RepositorioUsuario repUsuario;
+
+
 
     public ProcessoLogin(RepositorioUsuario repUsuario) {
         this.repUsuario = repUsuario;
@@ -27,12 +30,12 @@ public class ProcessoLogin {
      * @return usuário logado
      * @throws NegocioException caso não seja possível logar
      */
-    public Usuario logar(String login, String senha) throws NegocioException {
+    public Usuario logar(String login, String senha) throws PersistenceException {
         Usuario u = repUsuario.buscaPorLogin(login);
         if (u.getSenha().equals(senha)) {
             System.out.println("Você está logado");
             return u;
         }
-        throw new NegocioException("Login não efetuado");
+        throw new PersistenceException("Login não efetuado");
     }
 }

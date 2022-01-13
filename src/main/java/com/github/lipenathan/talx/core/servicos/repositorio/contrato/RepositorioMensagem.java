@@ -1,21 +1,20 @@
 package com.github.lipenathan.talx.core.servicos.repositorio.contrato;
 
 import com.github.lipenathan.talx.core.dominio.Mensagem;
-import com.github.lipenathan.talx.infra.exception.NegocioException;
+import com.github.lipenathan.talx.infra.exception.PersistenceException;
 
 import java.util.List;
-import java.util.Stack;
 
 public interface RepositorioMensagem {
-    void inserir(Mensagem o) throws NegocioException;
+    void inserir(Mensagem o) throws PersistenceException;
 
-    void deletar(Mensagem o) throws NegocioException;
+    void deletar(Mensagem o) throws PersistenceException;
 
-    List<Mensagem> listar() throws NegocioException;
+    List<Mensagem> listar() throws PersistenceException;
 
-    Mensagem getById(Integer id) throws NegocioException;
+    Mensagem getById(Integer id) throws PersistenceException;
 
-    void alterar(Mensagem o) throws NegocioException;
+    void alterar(Mensagem o) throws PersistenceException;
 
-    Stack<Mensagem> getByConversaId(Integer id) throws NegocioException;
+    List<Mensagem> getByConversaId(Integer id) throws PersistenceException;
 }

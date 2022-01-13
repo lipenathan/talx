@@ -2,6 +2,7 @@ package com.github.lipenathan.talx.core.dominio;
 
 import com.github.lipenathan.talx.infra.exception.NegocioException;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,31 +13,37 @@ import java.util.Objects;
  * @version 1.0 28/08/21
  * @since 28/08/21
  */
+@Entity
 public class Mensagem {
 
     /** armazena o id da mensagem. */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     /** armazena o id da conversa. */
-    private Integer idConversa;
+    @ManyToOne
+    private Conversa conversa;
     /**
      * Armazena nome do emissor.
      */
-    private Integer idEmissor;
+    @ManyToOne
+    private Usuario usuarioEmissor;
     /**
      * Armazena o conteúdo em texto da mensagem.
      */
+    @Column(name = "texto_mensagem")
     private String mensagem;
     /**
      * Armazena a data e hora da mensagem.
      */
+    @Column(name = "data_mensagem")
     private Date data;
 
-    public Mensagem(Integer idConversa, Integer idEmissor, String mensagem) {
-        this.idConversa = idConversa;
-        this.idEmissor = idEmissor;
+    public Mensagem(Conversa conversa, Usuario usuarioEmissor, String mensagem) {
+        this.conversa = conversa;
+        this.usuarioEmissor = usuarioEmissor;
         this.mensagem = mensagem;
-        this.data = new Date();
     }
 
     public Mensagem() {
@@ -50,12 +57,20 @@ public class Mensagem {
         this.id = id;
     }
 
-    public Integer getIdEmissor() {
-        return idEmissor;
+    public Conversa getConversa() {
+        return conversa;
     }
 
-    public void setIdEmissor(Integer idEmissor) {
-        this.idEmissor = idEmissor;
+    public void setConversa(Conversa conversa) {
+        this.conversa = conversa;
+    }
+
+    public Usuario getUsuarioEmissor() {
+        return usuarioEmissor;
+    }
+
+    public void setUsuarioEmissor(Usuario usuarioEmissor) {
+        usuarioEmissor = usuarioEmissor;
     }
 
     public String getMensagem() {
@@ -70,12 +85,8 @@ public class Mensagem {
         return data;
     }
 
-    public Integer getIdConversa() {
-        return idConversa;
-    }
-
-    public void setIdConversa(Integer idConversa) {
-        this.idConversa = idConversa;
+    public void setData(Date data) {
+        this.data = data;
     }
 
     // TO STRING
@@ -83,13 +94,14 @@ public class Mensagem {
     @Override
     public String toString() {
         return "Mensagem{" +
-                "id= " + id +
-                "\nidConversa= " + idConversa +
-                "\nidEmissor= " + idEmissor +
-                "\nmensagem= " + mensagem +
-                "\ndata= " + data +
-                "}\n";
+                "id=" + id +
+                ", conversa=" + conversa +
+                ", UsuarioEmissor=" + usuarioEmissor +
+                ", mensagem='" + mensagem + '\'' +
+                ", data=" + data +
+                '}';
     }
+
 
     // EQUALS E HASHCODE
 
@@ -106,7 +118,6 @@ public class Mensagem {
         return Objects.hash(id);
     }
 
-
     // validações e regras de negócio
 
     /**
@@ -119,11 +130,8 @@ public class Mensagem {
         if (this.mensagem.equals("")) {
             throw new NegocioException("conteúdo não pode ser vazio");
         }
-        if (this.idEmissor == null) {
+        if (this.usuarioEmissor == null) {
             throw new NegocioException("nome do emissor não pode ser nulo");
-        }
-        if (this.idEmissor.equals("")) {
-            throw new NegocioException("nome do emissor não pode ser em branco");
         }
         if (this.data == null) {
             throw new NegocioException("data da mensagem não pode ser nula");
