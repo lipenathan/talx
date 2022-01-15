@@ -1,7 +1,9 @@
-package com.github.lipenathan.talx.core.processos;
+package com.github.lipenathan.talx.core.processos.imp;
 
 import com.github.lipenathan.talx.core.dominio.Usuario;
+import com.github.lipenathan.talx.core.processos.contratos.ProcessosLogin;
 import com.github.lipenathan.talx.core.servicos.repositorio.contrato.RepositorioUsuario;
+import com.github.lipenathan.talx.core.servicos.repositorio.imp.RepositorioUsuarioImp;
 import com.github.lipenathan.talx.infra.exception.NegocioException;
 import com.github.lipenathan.talx.infra.exception.PersistenceException;
 
@@ -12,15 +14,12 @@ import com.github.lipenathan.talx.infra.exception.PersistenceException;
  * @version 1.0 01/09/21
  * @since 01/09/21
  */
-public class ProcessoLogin {
 
-    private final RepositorioUsuario repUsuario;
+public class ProcessosLoginImp implements ProcessosLogin {
+
+    private final RepositorioUsuario repUsuario = new RepositorioUsuarioImp();
 
 
-
-    public ProcessoLogin(RepositorioUsuario repUsuario) {
-        this.repUsuario = repUsuario;
-    }
 
     /**
      * método responsavel por fazer login do usuario
@@ -32,10 +31,10 @@ public class ProcessoLogin {
      */
     public Usuario logar(String login, String senha) throws PersistenceException {
         Usuario u = repUsuario.buscaPorLogin(login);
-        if (u.getSenha().equals(senha)) {
+        if (u != null && u.getSenha().equals(senha)) {
             System.out.println("Você está logado");
             return u;
         }
-        throw new PersistenceException("Login não efetuado");
+        throw new PersistenceException("Usuário não encontrado");
     }
 }

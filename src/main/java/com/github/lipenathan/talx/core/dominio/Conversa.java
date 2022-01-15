@@ -32,7 +32,6 @@ public class Conversa {
      * armazena uma lista com as mensagens da conversa.
      */
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "conversa")
     private List<Mensagem> mensagens;
     /**
      * Armazena a data e horario da ultima mensagem.
@@ -45,6 +44,27 @@ public class Conversa {
 
     public Conversa() {
     }
+
+    public void adicionarMensagem(Mensagem mensagem) {
+        this.mensagens.add(mensagem);
+        setDataHoraUltimaMensagem(mensagem.getData());
+    }
+
+    // validações e regra de negócio
+    /**
+     * metódo que valida dados da conversa
+     */
+    public void validarConversa() throws NegocioException {
+        if (this.usuarios.size() < 2) {
+            throw new NegocioException("Conversa precisa conter usuários");
+        }
+        if (this.mensagens.size() == 0) {
+            throw new NegocioException("Conversa precisa conter pelo menos uma mensagem");
+        }
+    }
+
+
+    // getters e setters
 
     public Integer getId() {
         return id;
@@ -66,21 +86,12 @@ public class Conversa {
         return mensagens;
     }
 
-    public void setMensagens(List<Mensagem> mensagens) {
-        this.mensagens = mensagens;
-    }
-
     public Date getDataHoraUltimaMensagem() {
         return dataHoraUltimaMensagem;
     }
 
     public void setDataHoraUltimaMensagem(Date dataHoraUltimaMensagem) {
         this.dataHoraUltimaMensagem = dataHoraUltimaMensagem;
-    }
-
-    public void adicionarMensagem(Mensagem mensagem) {
-        this.mensagens.add(mensagem);
-        setDataHoraUltimaMensagem(mensagem.getData());
     }
 
     // EQUALS E HASHCODE
@@ -106,16 +117,5 @@ public class Conversa {
                 ", mensagens=" + mensagens +
                 ", dataHoraUltimaMensagem=" + dataHoraUltimaMensagem +
                 '}';
-    }
-
-    // validações e regra de negócio
-
-    /**
-     * metódo que valida dados da conversa
-     */
-    void validarConversa() throws NegocioException {
-        if (this.usuarios.size() < 2) {
-            throw new NegocioException("Conversa precisa conter usuários");
-        }
     }
 }

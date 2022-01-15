@@ -1,15 +1,15 @@
 package com.github.lipenathan.talx.porta.web;
 
 import com.github.lipenathan.talx.core.dominio.Usuario;
-import com.github.lipenathan.talx.core.processos.ProcessoLogin;
-import com.github.lipenathan.talx.infra.exception.NegocioException;
+import com.github.lipenathan.talx.core.processos.contratos.ProcessosLogin;
+import com.github.lipenathan.talx.core.processos.imp.ProcessosLoginImp;
 import com.github.lipenathan.talx.infra.exception.PersistenceException;
 import com.github.lipenathan.talx.infra.web.RedirectView;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 
 @ManagedBean
@@ -19,18 +19,24 @@ public class PortaLoginForm implements Serializable {
     private static final Long serialVersionUID = 1L;
     private String login;
     private String senha;
-    private ProcessoLogin processoLogin;
+
+    private final ProcessosLogin processosLogin = new ProcessosLoginImp();
 
     public RedirectView logar() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         System.out.println("Realizando login com usuário - " + login);
         try {
-            Usuario usuario = processoLogin.logar(login, senha);
+            Usuario usuario = processosLogin.logar(login, senha);
             facesContext.getExternalContext().getSessionMap().put("usuarioLogado", usuario);
             return new RedirectView("conversas");
         } catch (PersistenceException e) {
             facesContext.getExternalContext().getFlash().setKeepMessages(true);
-            facesContext.addMessage(null, new FacesMessage("Usuário não encontrado"));
+            facesContext.addMessage(null, new FacesMessage("Erro ao logar - " + e));
+            System.out.println(e);
+        } catch (Exception e) {
+            facesContext.getExternalContext().getFlash().setKeepMessages(true);
+            facesContext.addMessage(null, new FacesMessage("Erro inesperado - " + e));
+            System.out.println(e);
         }
         return null;
     }

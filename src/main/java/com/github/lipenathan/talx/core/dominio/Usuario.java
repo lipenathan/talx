@@ -30,7 +30,7 @@ public class Usuario {
      * armazena as conversas do usuario
      */
     @ManyToMany
-    private Set<Conversa> conversas;
+    private Set<Conversa> conversas = new HashSet<>();
     /**
      * Armazena os contatos do usuário.
      */
@@ -73,6 +73,9 @@ public class Usuario {
     @Column(name = "senha_usuario")
     private String senha;
 
+    public Usuario() {
+    }
+
     public Usuario(String nome, String telefone, String email, String senha) {
         this.nome = nome;
         this.telefone = telefone;
@@ -88,8 +91,101 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public Usuario() {
-        contatos = new HashSet<>();
+    // Métodos do Usuário
+    /**
+     * Método para adicionar um contato à lista do usuário.
+     *
+     * @param contato a ser adicionado a lista
+     * @return true se adicionar contato, false se contato já existir
+     */
+    public void adicionarContato(Usuario contato) throws NegocioException {
+        if (contato == null) {
+            throw new NegocioException("Contato não pode ser nulo");
+        }
+        contatos.add(contato);
+    }
+
+    public void adicionarConversa(Conversa conversa) throws NegocioException {
+        if (conversa == null) throw new NegocioException("Conversa não pdoe ser nula");
+        this.conversas.add(conversa);
+    }
+
+    // validações e regras de negócio
+
+    /**
+     * Método que une validações em uma única.
+     */
+    public void validar() throws NegocioException {
+        validarNome();
+        validarContatoPrincipal();
+        validarSenha();
+    }
+
+    /**
+     * Método que valida nome
+     */
+    public void validarNome() throws NegocioException {
+        if (!this.nome.matches(NOME_REGEX)) {
+            throw new NegocioException("Nome inválido");
+        }
+    }
+
+    /**
+     * Método que valida regra de negócia de senha.
+     */
+    public void validarSenha() throws NegocioException {
+        if (this.senha == null) {
+            throw new NegocioException("A senha não pode ser nula");
+        }
+        if (this.senha.length() < 6) {
+            throw new NegocioException("A senha precisa conter no mínimo 6 dígitos");
+        }
+        if (apenasAlfabetico(this.senha)) {
+            throw new NegocioException("A senha precisa ter pelo menos um caracter especial ou número");
+        }
+    }
+
+    /**
+     * Método que valida regra de negócio de e-mail.
+     */
+    public void validarEmail() throws NegocioException {
+        if (this.email == null) {
+            throw new NegocioException("E-mail não pode ser nulo");
+        }
+        if (!this.email.contains("@")) {
+            throw new NegocioException("E-mail precisa conter @");
+        }
+        if (!this.email.matches(EMAIL_REGEX)) {
+            throw new NegocioException("E-mail inválido!");
+        }
+    }
+
+    /**
+     * Método que valida o formato do telefone.
+     */
+    public void validarTelefone() throws NegocioException {
+        if (this.telefone == null) {
+            throw new NegocioException("Telefone não pode ser nulo");
+        }
+        if (!this.telefone.matches(MOVEL_REGEX)) {
+            throw new NegocioException("Telefone inválido");
+        }
+    }
+
+    /**
+     * Método que valida contato principal.
+     */
+    public void validarContatoPrincipal() throws NegocioException {
+        if ((telefone == null || telefone.equals("")) && (email == null || email.equals("")))
+            throw new NegocioException("O usuário precisa conter telefone ou e-mail");
+        if (!(telefone == null) && !(email == null)) {
+            validarTelefone();
+            validarEmail();
+        } else if (!(email == null)) {
+            validarEmail();
+        } else {
+            validarTelefone();
+        }
     }
 
     // GETTERS E SETTERS
@@ -166,6 +262,14 @@ public class Usuario {
         this.conversas = conversas;
     }
 
+    public String getLogin() {
+        if (email != null && email.length() > 0) {
+            return email;
+        } else {
+         return telefone;
+        }
+    }
+
     // EQUALS E HASHCODE
 
     @Override
@@ -194,118 +298,5 @@ public class Usuario {
                 " telefone= " + telefone +
                 " email= " + email +
                 " senha= " + senha + "}";
-    }
-
-
-    // validações e regras de negócio
-
-    /**
-     * Método que une validações em uma única.
-     */
-    public void validar() throws NegocioException {
-        validarUsuario();
-        validarNome();
-        validarContatoPrincipal();
-        validarSenha();
-    }
-
-    public void validarUsuario() throws NegocioException {
-        if (nome == null) {
-            throw new NegocioException("O nome do usuario não pode ser nulo");
-        }
-        if (nome.equals("")) {
-            throw new NegocioException("O nome do usuário não pode ser vazio");
-        }
-        if ((telefone == null || telefone.equals("")) && (email == null || email.equals(""))) {
-            throw new NegocioException("O usuário precisa conter telefone ou e-mail");
-        }
-        if (senha == null) {
-            throw new NegocioException("A senha não pode ser nula");
-        }
-        if (senha.equals("")) {
-            throw new NegocioException("A senha não pode ser vazia");
-        }
-    }
-
-    /**
-     * Método que valida nome
-     */
-    public void validarNome() throws NegocioException {
-        if (!this.nome.matches(NOME_REGEX)) {
-            throw new NegocioException("Nome inválido");
-        }
-    }
-
-    /**
-     * Método que valida regra de negócia de senha.
-     */
-    public void validarSenha() throws NegocioException {
-        if (this.senha == null) {
-            throw new NegocioException("A senha não pode ser nula");
-        }
-        if (this.senha.length() < 6) {
-            throw new NegocioException("A senha precisa conter no mínimo 6 dígitos");
-        }
-        if (apenasAlfabetico(this.senha)) {
-            throw new NegocioException("A senha precisa ter pelo menos um caracter especial ou número");
-        }
-    }
-
-    /**
-     * Método que valida regra de negócio de e-mail.
-     */
-    public void validarEmail() throws NegocioException {
-        if (this.email == null) {
-            throw new NegocioException("E-mail não pode ser nulo");
-        }
-        if (!this.email.contains("@")) {
-            throw new NegocioException("E-mail precisa conter @");
-        }
-        if (!this.email.matches(EMAIL_REGEX)) {
-            throw new NegocioException("E-mail inválido!");
-        }
-    }
-
-    /**
-     * Método que valida o formato do telefone.
-     */
-    public void validarTelefone() throws NegocioException {
-        if (this.telefone == null) {
-            throw new NegocioException("Telefone não pode ser nulo");
-        }
-        if (!this.telefone.matches(MOVEL_REGEX)) {
-            throw new NegocioException("Telefone inválido");
-        }
-    }
-
-    /**
-     * Método que valida contato principal.
-     */
-    public void validarContatoPrincipal() throws NegocioException {
-        if ((telefone == null || telefone.equals("")) && (email == null || email.equals("")))
-            throw new NegocioException("O usuário precisa conter telefone ou e-mail");
-        if (!(telefone == null) && !(email == null)) {
-            validarTelefone();
-            validarEmail();
-        } else if (!(email == null)) {
-            validarEmail();
-        } else {
-            validarTelefone();
-        }
-    }
-
-    // Métodos do Usuário
-
-    /**
-     * Método para adicionar um contato à lista do usuário.
-     *
-     * @param contato a ser adicionado a lista
-     * @return true se adicionar contato, false se contato já existir
-     */
-    public boolean adicionarContato(Usuario contato) throws NegocioException {
-        if (contato == null) {
-            throw new NegocioException("Contato não pode ser nulo");
-        }
-        return contatos.add(contato);
     }
 }
