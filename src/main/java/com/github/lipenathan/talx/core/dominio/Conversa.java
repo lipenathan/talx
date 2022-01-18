@@ -3,6 +3,7 @@ package com.github.lipenathan.talx.core.dominio;
 import com.github.lipenathan.talx.infra.exception.NegocioException;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -26,13 +27,13 @@ public class Conversa {
     /**
      * armazena o usuario emissor da mensagem.
      */
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Usuario> usuarios;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    private List<Usuario> usuarios = new ArrayList<>();
     /**
      * armazena uma lista com as mensagens da conversa.
      */
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Mensagem> mensagens;
+    @OneToMany(cascade = CascadeType.MERGE)
+    private List<Mensagem> mensagens = new ArrayList<>();
     /**
      * Armazena a data e horario da ultima mensagem.
      */
@@ -57,9 +58,6 @@ public class Conversa {
     public void validarConversa() throws NegocioException {
         if (this.usuarios.size() < 2) {
             throw new NegocioException("Conversa precisa conter usuários");
-        }
-        if (this.mensagens.size() == 0) {
-            throw new NegocioException("Conversa precisa conter pelo menos uma mensagem");
         }
     }
 

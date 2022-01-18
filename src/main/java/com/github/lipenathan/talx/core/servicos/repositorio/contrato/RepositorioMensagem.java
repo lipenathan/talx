@@ -14,7 +14,7 @@ public interface RepositorioMensagem {
 
     Mensagem getById(Integer id) throws PersistenceException;
 
-    void alterar(Mensagem o) throws PersistenceException;
+    void atualizar(Mensagem o) throws PersistenceException;
 
     List<Mensagem> getByConversaId(Integer id) throws PersistenceException;
 }

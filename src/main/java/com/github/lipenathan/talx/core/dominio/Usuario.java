@@ -29,14 +29,14 @@ public class Usuario {
     /**
      * armazena as conversas do usuario
      */
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Conversa> conversas = new HashSet<>();
     /**
      * Armazena os contatos do usuário.
      */
     @Column(name = "contatos_usuario")
     @ManyToMany
-    private Set<Usuario> contatos;
+    private Set<Usuario> contatos = new HashSet<>();
     /**
      * armazena o nome do usuario.
      */

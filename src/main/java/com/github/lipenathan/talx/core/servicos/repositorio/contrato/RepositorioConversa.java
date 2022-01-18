@@ -14,7 +14,7 @@ public interface RepositorioConversa {
 
     Conversa getById(Integer id) throws PersistenceException;
 
-    void alterar(Conversa o) throws PersistenceException;
+    void atualizar(Conversa o) throws PersistenceException;
 
     List<Conversa> getConversasUsuario(Integer idUsuario) throws PersistenceException;
 

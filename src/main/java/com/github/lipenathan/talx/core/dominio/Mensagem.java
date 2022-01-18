@@ -44,6 +44,7 @@ public class Mensagem {
         this.conversa = conversa;
         this.usuarioEmissor = usuarioEmissor;
         this.mensagem = mensagem;
+        data = new Date();
     }
 
     public Mensagem() {

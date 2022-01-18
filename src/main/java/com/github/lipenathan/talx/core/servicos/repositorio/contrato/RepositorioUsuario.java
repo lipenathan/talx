@@ -14,7 +14,7 @@ public interface RepositorioUsuario {
 
     Usuario getById(Integer id) throws PersistenceException;
 
-    void alterar(Usuario o) throws PersistenceException;
+    void atualizar(Usuario o) throws PersistenceException;
 
     Usuario buscaPorLogin(String login) throws PersistenceException;
 
